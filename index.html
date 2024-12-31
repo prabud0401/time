@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamic Time and Date with Boom Animation</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Remix Icon Library -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
@@ -73,16 +75,41 @@
         opacity: 1;
       }
     }
+
+    /* Play button styling */
+    #playPauseButton {
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 24px;
+      color: white;
+      background: none;
+      border: none;
+      outline: none;
+    }
   </style>
 </head>
 <body>
+  <!-- Audio element for background music -->
+  <audio id="bgm" autoplay loop>
+    <source src="./theme.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
   <div class="text-center">
     <div id="time" class="time-text anton-regular"></div>
     <div id="date" class="date-text covered-by-your-grace-regular mt-4"></div>
+    
+    <!-- Play/Pause button -->
+    <button id="playPauseButton">
+      <i id="playPauseIcon" class="ri-play-fill text-5xl"></i>
+    </button>
   </div>
 
   <script>
     let lastMinute = new Date().getMinutes(); // Store the last minute to detect change
+    const audioElement = document.getElementById('bgm');
+    const playPauseButton = document.getElementById('playPauseButton');
+    const playPauseIcon = document.getElementById('playPauseIcon');
 
     function updateTimeAndDate() {
       const timeElement = document.getElementById('time');
@@ -113,6 +140,19 @@
         }, 500);
       }
     }
+
+    // Play/Pause functionality
+    playPauseButton.addEventListener('click', () => {
+      if (audioElement.paused) {
+        audioElement.play();
+        playPauseIcon.classList.remove('ri-play-fill');
+        playPauseIcon.classList.add('ri-pause-fill');
+      } else {
+        audioElement.pause();
+        playPauseIcon.classList.remove('ri-pause-fill');
+        playPauseIcon.classList.add('ri-play-fill');
+      }
+    });
 
     // Update the time and date immediately and then every second
     updateTimeAndDate();
