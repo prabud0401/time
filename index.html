@@ -3,13 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Current Time and Date</title>
+  <title>Dynamic Time and Date</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <style>
+    /* Custom gradient background */
+    body {
+      background: linear-gradient(135deg, #FF5733, #33FFBD, #335BFF, #FF33D4);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Anton font styling */
+    .anton-regular {
+      font-family: "Anton", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    /* Dynamic font size for time */
+    .time-text {
+      font-size: calc(8vw + 8vh); /* Large dynamic size */
+      white-space: nowrap; /* Keep on one line */
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Dynamic font size for date */
+    .date-text {
+      font-size: calc(4vw + 2vh); /* Smaller dynamic size */
+      white-space: nowrap; /* Keep on one line */
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+  </style>
 </head>
-<body class="h-screen flex items-center justify-center text-center bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500">
-  <div>
-    <div id="time" class="text-6xl font-bold text-white"></div>
-    <div id="date" class="text-3xl text-gray-200 mt-4"></div>
+<body>
+  <div class="text-center anton-regular">
+    <div id="time" class="time-text"></div>
+    <div id="date" class="date-text mt-4"></div>
   </div>
 
   <script>
