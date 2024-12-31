@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Current Time and Date</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-screen flex items-center justify-center text-center bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500">
+  <div>
+    <div id="time" class="text-6xl font-bold text-white"></div>
+    <div id="date" class="text-3xl text-gray-200 mt-4"></div>
+  </div>
+
+  <script>
+    function updateTimeAndDate() {
+      const timeElement = document.getElementById('time');
+      const dateElement = document.getElementById('date');
+
+      const now = new Date();
+      const timeString = now.toLocaleTimeString();
+      const dateString = now.toLocaleDateString(undefined, { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+
+      timeElement.textContent = timeString;
+      dateElement.textContent = dateString;
+    }
+
+    // Update the time and date immediately and then every second
+    updateTimeAndDate();
+    setInterval(updateTimeAndDate, 1000);
+  </script>
+</body>
+</html>
