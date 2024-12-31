@@ -3,33 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Time and Date</title>
+  <title>Dynamic Time and Date with Boom Animation</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
   <style>
-    /* Custom gradient background */
+    /* Background image */
     body {
-      background: linear-gradient(135deg, #FF5733, #33FFBD, #335BFF, #FF33D4);
-      background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
+      background-image: url('https://wallpapercat.com/w/full/6/4/4/183838-2560x1440-desktop-hd-breaking-bad-background-photo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      transition: all 0.5s ease;
     }
 
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Anton font styling */
+    /* Anton font styling for time */
     .anton-regular {
       font-family: "Anton", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    /* Covered By Your Grace font styling for date */
+    .covered-by-your-grace-regular {
+      font-family: "Covered By Your Grace", serif;
       font-weight: 400;
       font-style: normal;
     }
@@ -49,15 +53,37 @@
       color: white;
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
     }
+
+    /* Boom Animation */
+    .boom {
+      animation: boomAnimation 0.5s ease-in-out;
+    }
+
+    @keyframes boomAnimation {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="text-center anton-regular">
-    <div id="time" class="time-text"></div>
-    <div id="date" class="date-text mt-4"></div>
+  <div class="text-center">
+    <div id="time" class="time-text anton-regular"></div>
+    <div id="date" class="date-text covered-by-your-grace-regular mt-4"></div>
   </div>
 
   <script>
+    let lastMinute = new Date().getMinutes(); // Store the last minute to detect change
+
     function updateTimeAndDate() {
       const timeElement = document.getElementById('time');
       const dateElement = document.getElementById('date');
@@ -73,6 +99,19 @@
 
       timeElement.textContent = timeString;
       dateElement.textContent = dateString;
+
+      // Check if the minute has changed
+      if (now.getMinutes() !== lastMinute) {
+        lastMinute = now.getMinutes(); // Update the last minute
+
+        // Trigger the boom animation
+        document.body.classList.add('boom');
+        
+        // Remove the boom class after animation ends to reset the state
+        setTimeout(() => {
+          document.body.classList.remove('boom');
+        }, 500);
+      }
     }
 
     // Update the time and date immediately and then every second
