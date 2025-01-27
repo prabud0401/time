@@ -3,136 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Website</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Breaking Bad Clock</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/1920/1080');
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .breaking-bad-bg {
+            background: linear-gradient(45deg, #1a2f1a, #2d4a2d);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .breaking-bad-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/chemical-flask.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .breaking-text {
+            font-family: 'Roboto Mono', monospace;
+            text-shadow: 0 0 10px rgba(51, 255, 51, 0.5);
+        }
+
+        .chemical-animation {
+            animation: pulse 3s infinite;
+        }
+
+        .glow {
+            text-shadow: 0 0 15px #33FF33, 0 0 25px #33FF33;
         }
     </style>
 </head>
-<body class="bg-gray-100">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg fixed w-full z-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold text-blue-600">Brand</span>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <button id="menuBtn" class="md:hidden p-2">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/>
-                    </svg>
-                </button>
-
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
-                </div>
+<body class="h-screen w-screen m-0 p-0 overflow-hidden">
+    <div class="breaking-bad-bg h-full w-full flex flex-col items-center justify-center text-center text-white relative">
+        <!-- Chemical Flask Floating Animation -->
+        <img src="https://www.freeiconspng.com/uploads/chemistry-flask-png-5.png" 
+             class="absolute w-32 opacity-20 animate-float"
+             style="animation: fadeIn 2s ease-out, float 6s infinite; left: 20%; top: 30%">
+        
+        <!-- Time Display -->
+        <div class="breaking-text mb-8 chemical-animation">
+            <div id="time" class="text-8xl md:text-9xl font-bold mb-4 text-[#33FF33] glow" 
+                 style="animation: fadeIn 1.5s ease-out">
+                12:00:00
+            </div>
+            <div id="date" class="text-3xl md:text-4xl text-[#FFD700]" 
+                 style="animation: fadeIn 2s ease-out">
+                MONDAY, JANUARY 1
             </div>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-white">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">Home</a>
-                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">About</a>
-                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">Services</a>
-                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">Contact</a>
-            </div>
-        </div>
-    </nav>
+        <!-- Breaking Bad Logo -->
+        <img src="https://www.freeiconspng.com/uploads/breaking-bad-png-logo-5.png" 
+             class="w-64 md:w-80 mt-12 opacity-90 hover:opacity-100 transition-opacity"
+             style="animation: fadeIn 3s ease-out">
+    </div>
 
-    <!-- Hero Section -->
-    <header class="hero-bg bg-cover bg-center h-screen flex items-center">
-        <div class="max-w-7xl mx-auto px-4 text-center text-white">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">Welcome to Our Platform</h1>
-            <p class="text-xl mb-8">Creating amazing digital experiences</p>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg transition-all">
-                Get Started
-            </button>
-        </div>
-    </header>
-
-    <!-- Features Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12">Our Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature Card 1 -->
-                <div class="p-6 bg-gray-100 rounded-lg hover:shadow-xl transition-all">
-                    <img src="https://picsum.photos/400/300" alt="Feature" class="rounded-lg mb-4">
-                    <h3 class="text-xl font-bold mb-2">Modern Design</h3>
-                    <p class="text-gray-600">Clean and contemporary interface with user-friendly experience.</p>
-                </div>
-
-                <!-- Feature Card 2 -->
-                <div class="p-6 bg-gray-100 rounded-lg hover:shadow-xl transition-all">
-                    <img src="https://picsum.photos/401/300" alt="Feature" class="rounded-lg mb-4">
-                    <h3 class="text-xl font-bold mb-2">Responsive</h3>
-                    <p class="text-gray-600">Perfect display on all devices and screen sizes.</p>
-                </div>
-
-                <!-- Feature Card 3 -->
-                <div class="p-6 bg-gray-100 rounded-lg hover:shadow-xl transition-all">
-                    <img src="https://picsum.photos/402/300" alt="Feature" class="rounded-lg mb-4">
-                    <h3 class="text-xl font-bold mb-2">Fast Performance</h3>
-                    <p class="text-gray-600">Optimized for speed and smooth interactions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h4 class="text-xl font-bold mb-4">Company</h4>
-                    <p class="text-gray-400">About Us</p>
-                    <p class="text-gray-400">Careers</p>
-                    <p class="text-gray-400">Contact</p>
-                </div>
-                <!-- Add more footer columns as needed -->
-            </div>
-            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
-                <p class="text-gray-400">&copy; 2024 Your Brand. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
     <script>
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        function updateTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('time');
+            const dateElement = document.getElementById('date');
+            
+            // Format time with leading zeros
+            const time = now.toLocaleTimeString('en-US', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
             });
-        });
+            
+            // Format date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = now.toLocaleDateString('en-US', options).toUpperCase();
+            
+            timeElement.textContent = time;
+            dateElement.textContent = date;
+        }
 
-        // Dark Mode Toggle (optional)
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        darkModeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        // Update immediately and then every second
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Add hover effect
+        document.getElementById('time').addEventListener('mouseover', function() {
+            this.style.textShadow = '0 0 25px #33FF33, 0 0 35px #33FF33';
+        });
+        
+        document.getElementById('time').addEventListener('mouseout', function() {
+            this.style.textShadow = '0 0 15px #33FF33, 0 0 25px #33FF33';
         });
     </script>
 </body>
