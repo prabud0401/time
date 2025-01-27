@@ -1,162 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Time and Date with Boom Animation</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Remix Icon Library -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
-  <style>
-    /* Background image */
-    body {
-      background-image: url('https://wallpapercat.com/w/full/6/4/4/183838-2560x1440-desktop-hd-breaking-bad-background-photo.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      transition: all 0.5s ease;
-    }
-
-    /* Anton font styling for time */
-    .anton-regular {
-      font-family: "Anton", serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    /* Covered By Your Grace font styling for date */
-    .covered-by-your-grace-regular {
-      font-family: "Covered By Your Grace", serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    /* Dynamic font size for time */
-    .time-text {
-      font-size: calc(8vw + 8vh); /* Large dynamic size */
-      white-space: nowrap; /* Keep on one line */
-      color: white;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-    }
-
-    /* Dynamic font size for date */
-    .date-text {
-      font-size: calc(4vw + 2vh); /* Smaller dynamic size */
-      white-space: nowrap; /* Keep on one line */
-      color: white;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-    }
-
-    /* Boom Animation */
-    .boom {
-      animation: boomAnimation 0.5s ease-in-out;
-    }
-
-    @keyframes boomAnimation {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.2);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    /* Play button styling */
-    #playPauseButton {
-      margin-top: 20px;
-      cursor: pointer;
-      font-size: 24px;
-      color: white;
-      background: none;
-      border: none;
-      outline: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Website</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS -->
+    <style>
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/1920/1080');
+        }
+    </style>
 </head>
-<body>
-  <!-- Audio element for background music -->
-  <audio id="bgm" autoplay loop>
-    <source src="theme.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-600">Brand</span>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden p-2">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/>
+                    </svg>
+                </button>
 
-  <div class="text-center">
-    <div id="time" class="time-text anton-regular"></div>
-    <div id="date" class="date-text covered-by-your-grace-regular mt-4"></div>
-    
-    <!-- Play/Pause button -->
-    <button id="playPauseButton">
-      <i id="playPauseIcon" class="ri-play-fill text-5xl"></i>
-    </button>
-  </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+                </div>
+            </div>
+        </div>
 
-  <script>
-    let lastMinute = new Date().getMinutes(); // Store the last minute to detect change
-    const audioElement = document.getElementById('bgm');
-    const playPauseButton = document.getElementById('playPauseButton');
-    const playPauseIcon = document.getElementById('playPauseIcon');
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">Home</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">About</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">Services</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-    function updateTimeAndDate() {
-      const timeElement = document.getElementById('time');
-      const dateElement = document.getElementById('date');
+    <!-- Hero Section -->
+    <header class="hero-bg bg-cover bg-center h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 text-center text-white">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">Welcome to Our Platform</h1>
+            <p class="text-xl mb-8">Creating amazing digital experiences</p>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg transition-all">
+                Get Started
+            </button>
+        </div>
+    </header>
 
-      const now = new Date();
-      const timeString = now.toLocaleTimeString();
-      const dateString = now.toLocaleDateString(undefined, { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Our Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="p-6 bg-gray-100 rounded-lg hover:shadow-xl transition-all">
+                    <img src="https://picsum.photos/400/300" alt="Feature" class="rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2">Modern Design</h3>
+                    <p class="text-gray-600">Clean and contemporary interface with user-friendly experience.</p>
+                </div>
 
-      timeElement.textContent = timeString;
-      dateElement.textContent = dateString;
+                <!-- Feature Card 2 -->
+                <div class="p-6 bg-gray-100 rounded-lg hover:shadow-xl transition-all">
+                    <img src="https://picsum.photos/401/300" alt="Feature" class="rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2">Responsive</h3>
+                    <p class="text-gray-600">Perfect display on all devices and screen sizes.</p>
+                </div>
 
-      // Check if the minute has changed
-      if (now.getMinutes() !== lastMinute) {
-        lastMinute = now.getMinutes(); // Update the last minute
+                <!-- Feature Card 3 -->
+                <div class="p-6 bg-gray-100 rounded-lg hover:shadow-xl transition-all">
+                    <img src="https://picsum.photos/402/300" alt="Feature" class="rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2">Fast Performance</h3>
+                    <p class="text-gray-600">Optimized for speed and smooth interactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Trigger the boom animation
-        document.body.classList.add('boom');
-        
-        // Remove the boom class after animation ends to reset the state
-        setTimeout(() => {
-          document.body.classList.remove('boom');
-        }, 500);
-      }
-    }
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Company</h4>
+                    <p class="text-gray-400">About Us</p>
+                    <p class="text-gray-400">Careers</p>
+                    <p class="text-gray-400">Contact</p>
+                </div>
+                <!-- Add more footer columns as needed -->
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">&copy; 2024 Your Brand. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    // Play/Pause functionality
-    playPauseButton.addEventListener('click', () => {
-      if (audioElement.paused) {
-        audioElement.play();
-        playPauseIcon.classList.remove('ri-play-fill');
-        playPauseIcon.classList.add('ri-pause-fill');
-      } else {
-        audioElement.pause();
-        playPauseIcon.classList.remove('ri-pause-fill');
-        playPauseIcon.classList.add('ri-play-fill');
-      }
-    });
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-    // Update the time and date immediately and then every second
-    updateTimeAndDate();
-    setInterval(updateTimeAndDate, 1000);
-  </script>
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dark Mode Toggle (optional)
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        });
+    </script>
 </body>
 </html>
